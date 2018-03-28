@@ -3,3 +3,4 @@ apache2_domain_rr: www.domain.com
 certbot_certs_domains:
   - "{{ apache2_domain_rr }}"
 
+ssl_enabled: true
