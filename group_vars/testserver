@@ -1,3 +1,6 @@
 # Defined ssl varible for all marketing websites
 ssl_enabled: false
 
+# Setup Swap File Size for EC2 instance
+swapfile_size: 2048
+
