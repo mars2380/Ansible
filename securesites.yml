@@ -1,0 +1,9 @@
+  - name: setup EC2 node to Installs and configures Certbot (for Let's Encrypt).
+    hosts: all # This uses the hosts that we put into the in-memory hosts repository with the add_host module.
+    remote_user: ubuntu # This is the username for all ubuntu images, rather than root, or something weird.
+    become: yes
+    become_method: sudo
+    gather_facts: True
+    roles:
+      - securesites
+

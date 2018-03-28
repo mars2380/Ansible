@@ -1,0 +1,15 @@
+#
+# LIVE AWS EC2 instances dynamic inventory
+#
+
+[tag_environment_server01]
+
+[testserver:children]
+tag_environment_server01
+
+[ec2_python3_hosts:children]
+testserver
+
+[ec2_python3_hosts:vars]
+ansible_python_interpreter=/usr/bin/python3
+
