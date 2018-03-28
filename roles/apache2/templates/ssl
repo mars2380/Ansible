@@ -1,0 +1,17 @@
+<VirtualHost *:80>
+
+        # location of website files
+        DocumentRoot /var/www/site
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        # password protect site if not coming from known IP address
+        <Directory "/var/www/site">
+
+            AllowOverride All
+
+        </Directory>
+
+</VirtualHost>
+

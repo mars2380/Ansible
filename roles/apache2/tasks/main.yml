@@ -1,0 +1,65 @@
+---
+
+#
+# Setup a basic web server with Apache2
+#
+# configured to serve a single static site
+# protected by username/password except for access from a recognised IP
+# site should be deployed to target server directory /var/www/site
+#
+
+- name: install default packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - apache2
+    - apache2-utils
+    - python-passlib
+
+- name: enabled mod_rewrite
+  apache2_module: name=rewrite state=present
+  notify: restart apache2
+
+- name: enabled mod_ssl
+  apache2_module: name=ssl state=present
+  notify: restart apache2
+  when:
+    - ssl_enabled
+
+- name: disable default site
+  file: >
+    path="/etc/apache2/sites-enabled/000-default.conf"
+    state=absent
+  notify: restart apache2
+
+- name: ensure site directory exists
+  file: >
+    path="/var/www/site"
+    state=directory
+    mode=0755
+  notify: restart apache2
+
+- name: transfer site configuration
+  template: >
+    src="site"
+    dest="/etc/apache2/sites-available/site.conf"
+    backup=yes
+  notify: restart apache2
+  when:
+    - not ssl_enabled
+
+- name: transfer ssl_site configuration
+  template: >
+    src="ssl_site"
+    dest="/etc/apache2/sites-available/site.conf"
+    backup=yes
+  notify: restart apache2
+  when:
+    - ssl_enabled
+
+- name: enable sites
+  file: >
+    src="../sites-available/site.conf"
+    dest="/etc/apache2/sites-enabled/site.conf"
+    state=link
+    mode=0755
+  notify: restart apache2

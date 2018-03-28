@@ -1,0 +1,3 @@
+# Defined ssl varible for all marketing websites
+ssl_enabled: false
+
