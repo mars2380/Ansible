@@ -1,6 +1,6 @@
 ### Install SSH Keys for admin accounts
 	
-	ansible-playbook -i hosts -u ubuntu -l Server01 developeraccounts.yml
+	ansible-playbook -i hosts -u ubuntu -l tag_environment_server01 developeraccounts.yml
 
 ### Trouble Shooting
 
