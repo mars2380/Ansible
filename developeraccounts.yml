@@ -1,0 +1,10 @@
+---
+# file developeraccounts.yml
+
+  - name: setup a server with admin accounts
+    hosts: all
+    sudo: yes 
+    gather_facts: True 
+    roles:
+      - developer_accounts
+      
